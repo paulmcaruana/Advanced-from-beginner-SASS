@@ -1,5 +1,13 @@
-@import "variables";
-@import "mixins";
+// === SCSS imports ===
+
+@import "partials/variables";
+@import "partials/mixins";
+
+// === These work as normal CSS imports ===
+// @import url();
+// @import "http://";
+// @import "filename.css";
+// @import "style-screen" screen;
 
 @include fancy-links;
 
