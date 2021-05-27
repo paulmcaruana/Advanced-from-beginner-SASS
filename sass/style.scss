@@ -1,5 +1,6 @@
 // === SCSS imports ===
 
+@import "partials/functions";
 @import "partials/variables";
 @import "partials/mixins";
 
@@ -11,9 +12,22 @@
 
 @include fancy-links;
 
+.error {
+	color: red;
+}
+
+.critical-error {
+	@extend .error;
+	bottom: 1px solid red;
+	font-weight: bold;
+}
+
 body {
 	font-family: $text-font;
 	color: $text-color;
+	// color: rgb(10, 15, 50); //example of a function that works in css as well
+	// background-color: hsl(60, 50%, 100%); //another example
+	font-size: em(18px);
 
 	@include large-screens {
 		font-size: 125%;
@@ -37,11 +51,37 @@ p {
 
 a {
 	color: $link-color;
+
+	&:hover {
+		color: darken($link-color, 15%);
+	}
+}
+
+%highlight {
+	font-style: italic;
+}
+
+.sub-title {
+	@extend %highlight;
+	@extend .foo !optional;
+	font-size: em(20px);
 }
 
 .warning-button {
 	@include warning;
 	padding: 8px 12px;
+}
+
+.cta-button {
+	@extend .warning-button;
+	@extend .error;
+	@include rounded;
+	font-weight: bold;
+}
+
+.super-cta-button {
+	@extend .cta-button;
+	font-size: em(20px);
 }
 
 @include apply-to-ie-6 {
@@ -55,12 +95,21 @@ a {
 	@include box-shadow(2px 0px 4px #999, 1px 1px 6px $secondary-color);
 	height: $header-height;
 	background-color: $theme-color;
+
 	#main-menu {
 		li {
 			display: inline;
 		}
 		a {
 			color: $menu-item-color;
+			padding: 6px 8px;
+			border-bottom: 1px solid transparentize($color: #fefefe, $amount: 1);
+			transition: border-bottom 0.5s;
+			transition-timing-function: ease-in-out;
+
+			&:hover {
+				border-bottom: 1px solid opacify($color: #fefefe, $amount: 0.5);
+			}
 		}
 	}
 
@@ -79,9 +128,23 @@ a {
 	margin-right: auto;
 
 	#content {
+		float: left;
+		width: 6 * $col;
 	}
 
 	#sidebar {
+		float: right;
+		width: 2 * $col;
+
+		li {
+			list-style-type: none;
+			padding: em(16px) em(20px);
+			border-bottom: 1px dashed #999;
+
+			&:hover {
+				background-color: #efefef;
+			}
+		}
 	}
 }
 

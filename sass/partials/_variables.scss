@@ -18,6 +18,9 @@ $headline-font: $titillium-web, Georgia, serif;
 
 // === SIZES ===
 
+$col: col-width(
+	$columns: 8,
+);
 $content-width: 960px;
 $header-height: 60px;
 $footer-height: 90px;
