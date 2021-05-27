@@ -24,10 +24,9 @@
 
 body {
 	font-family: $text-font;
-	color: $text-color;
-	// color: rgb(10, 15, 50); //example of a function that works in css as well
-	// background-color: hsl(60, 50%, 100%); //another example
 	font-size: em(18px);
+	color: $text-color;
+	background-color: $body-background-color;
 
 	@include large-screens {
 		font-size: 125%;
@@ -52,6 +51,10 @@ p {
 a {
 	color: $link-color;
 
+	@include blue-beans {
+		color: #8779ff;
+	}
+
 	&:hover {
 		color: darken($link-color, 15%);
 	}
@@ -67,13 +70,17 @@ a {
 	font-size: em(20px);
 }
 
-.warning-button {
+@mixin warning-button {
 	@include warning;
 	padding: 8px 12px;
 }
 
+.warning-button {
+	@include warning-button;
+}
+
 .cta-button {
-	@extend .warning-button;
+	@include warning-button;
 	@extend .error;
 	@include rounded;
 	font-weight: bold;
@@ -84,14 +91,8 @@ a {
 	font-size: em(20px);
 }
 
-@include apply-to-ie-6 {
-	body {
-		font-size: 125%;
-	}
-}
-
 #header {
-	@include box($border: 1px solid white, $radius: 12px);
+	@include box($border: 1px solid #fff, $radius: 12px);
 	@include box-shadow(2px 0px 4px #999, 1px 1px 6px $secondary-color);
 	height: $header-height;
 	background-color: $theme-color;
@@ -100,15 +101,16 @@ a {
 		li {
 			display: inline;
 		}
+
 		a {
 			color: $menu-item-color;
 			padding: 6px 8px;
-			border-bottom: 1px solid transparentize($color: #fefefe, $amount: 1);
+			border-bottom: 1px solid transparentize(#fefefe, 1);
 			transition: border-bottom 0.5s;
 			transition-timing-function: ease-in-out;
 
 			&:hover {
-				border-bottom: 1px solid opacify($color: #fefefe, $amount: 0.5);
+				border-bottom: 1px solid opacify(#fefefe, 0.5);
 			}
 		}
 	}
@@ -123,7 +125,6 @@ a {
 		width: auto;
 		max-width: $content-width;
 	}
-
 	margin-left: auto;
 	margin-right: auto;
 
@@ -149,6 +150,11 @@ a {
 }
 
 #footer {
+	clear: both;
 	height: $footer-height;
 	background-color: $ternary-color;
+
+	@include rogers-rovers {
+		border-top: 5px solid darken($ternary-color, 15%);
+	}
 }
